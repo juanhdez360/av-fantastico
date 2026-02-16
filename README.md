@@ -1,4 +1,4 @@
-# av-fantastico
+# El fantastico
 
 **Autonomous Vehicle Trajectory Prediction**
 
@@ -9,7 +9,7 @@
 ![ROS2](https://img.shields.io/badge/ROS2-MCAP-22314E?logo=ros&logoColor=white)
 ![uv](https://img.shields.io/badge/uv-package_manager-DE5FE9?logo=uv&logoColor=white)
 
-## Setup with uv
+## Setup
 
 ```bash
 # Install uv (if not installed)
