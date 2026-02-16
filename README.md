@@ -61,4 +61,3 @@ uv add <package>
 │   └── training.py            # Model training logic
 └── uv.lock                    # Lock file for reproducible dependencies
 ```
-Nota: La estructura del proyecto está mostrada arriba en formato de árbol (code block con ```text), así se verá correctamente formateada en el README.
