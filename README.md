@@ -29,7 +29,7 @@ uv add <package>
 ```
 
 ## Project structure
-
+```text
 ├── README.md                  # Project documentation
 ├── crips-dm                   # Methodology analysis
 ├── data                       # Folder for processed data, datasets, or intermediate files
@@ -60,3 +60,5 @@ uv add <package>
 │   ├── parameter_trainable.py # Utilities for model parameter handling, e.g., LoRA and freezing layers
 │   └── training.py            # Model training logic
 └── uv.lock                    # Lock file for reproducible dependencies
+```
+Nota: La estructura del proyecto está mostrada arriba en formato de árbol (code block con ```text), así se verá correctamente formateada en el README.
