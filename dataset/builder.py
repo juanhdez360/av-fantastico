@@ -207,35 +207,45 @@ def build_alpamayo_sample(
 
 
 if __name__ == "__main__":
-    # Main execution: reads CSVs, builds sample and saves it to disk
-    pose_df = pd.read_csv("../raw-data/pose/pose.csv")
-    orientation_df = pd.read_csv("../raw-data/orientation/orientation.csv")
-    images_df = pd.read_csv("../raw-data/image/images_index.csv")
 
-    # Compute min/max time ranges for output samples
+    pose_df = pd.read_csv("pose-raw.csv")
+    orientation_df = pd.read_csv("orientation-raw.csv")
+    images_df = pd.read_csv("images_extracted_raw/images-raw-index.csv")
+
     t_min = max(pose_df["t"].min() + 1.6, images_df["t"].min() + 0.3)
     t_max = min(pose_df["t"].max() - 6.4, images_df["t"].max() - 0.01)
 
     out_dir = "clips"
     os.makedirs(out_dir, exist_ok=True)
 
-    stride_s = 0.5  
+    stride_s = 3  
     ok = fail = 0
 
-    # Sliding window over time range to build samples at regular intervals
+  
     for t0 in np.arange(t_min, t_max, stride_s):
-        t0_us = int(t0 * 1e6)
+        t0_us = int(round(t0 * 1e6)) 
+        
         try:
+           
             data = build_alpamayo_sample(
-                t0_us, pose_df, orientation_df, images_df,
-                images_root=".", use_torch=False
+                t0_us, 
+                pose_df.copy(), 
+                orientation_df.copy(), 
+                images_df.copy(),
+                images_root=".", 
+                use_torch=False
             )
-            # Save only ndarray elements to file
+            
+
             arrays = {k: v for k, v in data.items() if isinstance(v, np.ndarray)}
             np.savez_compressed(os.path.join(out_dir, f"sample_{t0_us}.npz"), **arrays)
             ok += 1
-        except Exception:
+            print(f"Éxito en clip {t0_us}")
+            
+        except Exception as e:
             fail += 1
+            
+            print(f"Error en el clip t0_us={t0_us}: {e}")
             continue
 
     print(f"Done. saved={ok} failed={fail} dir={out_dir}")
